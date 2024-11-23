@@ -30,6 +30,12 @@ class BrandResource extends Resource
             Forms\Components\TextInput::make('nameAr')
                 ->required()
                 ->maxLength(255),
+                Forms\Components\TextInput::make('description')
+                ->required()
+                ->maxLength(1024),
+                Forms\Components\TextInput::make('descriptionAr')
+                ->required()
+                ->maxLength(1024),
             FileUpload::make('img')
                 ->image()
                 ->disk("public")
