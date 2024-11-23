@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('nameAr')->unique();
+            $table->string('description')->nullable();
+            $table->string('descriptionAr')->nullable();
             $table->string('img')->nullable();
 
 

@@ -17,7 +17,7 @@ class GlobalTokenAuth
     {
         $token = $request->header('Authorization'); // Retrieve the token from the header
 
-        if ($token !== 'Bearer ' . config('app.global_token')) {
+        if ($token !== 'Bearer ' . env('APP_GLOBAL_TOKEN')) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
