@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\GlobalTokenAuth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Foundation\Application;
@@ -26,7 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         //
-    })
+    })->withMiddleware(function (Middleware $middleware) {
+        $middleware->append(GlobalTokenAuth::class);
+   })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')) {
