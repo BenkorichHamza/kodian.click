@@ -25,11 +25,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
-
+            $middleware->appendToGroup("global_token",[GlobalTokenAuth::class]);
         //
-    })->withMiddleware(function (Middleware $middleware) {
-        $middleware->append(GlobalTokenAuth::class);
-   })
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')) {

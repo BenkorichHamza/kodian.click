@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware(GlobalTokenAuth::class)->group(function () {
+Route::middleware("global_token")->group(function () {
     Route::apiResource('products',ProductController::class);
     Route::apiResource('categories',CategoryController::class);
     Route::apiResource('brands',BrandController::class);
