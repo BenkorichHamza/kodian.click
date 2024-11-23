@@ -43,8 +43,12 @@ class ProductController extends Controller
             ->orWhere("descriptionAr","LIKE","%".$query."%")
             ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$query."%"))
             ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$query."%"))
+            ->orWhereHas('categories', fn($q) => $q->where("description","LIKE","%".$query."%"))
+            ->orWhereHas('categories', fn($q) => $q->where("descriptionAr","LIKE","%".$query."%"))
             ->orWhereHas('brand', fn($q) => $q->where("name","LIKE","%".$query."%"))
-            ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$query."%"));
+            ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$query."%"))
+            ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$query."%"))
+            ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query."%"));
         });
 
 
