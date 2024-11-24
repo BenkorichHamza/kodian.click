@@ -56,6 +56,9 @@ class ProductController extends Controller
         if ($brand) {
             $builder->where('brand_id',$brand);
         }
+        if ($category) {
+            $builder->whereHas('categories', fn($q) => $q->where('id',$category));
+        }
         $favorites = $request->query('favorites');
         if ($favorites) {
             $ids = explode(",",$favorites);
