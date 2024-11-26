@@ -56,6 +56,10 @@ class ProductController extends Controller
         if ($brand) {
             $builder->where('brand_id',$brand);
         }
+        $discount = $request->query('discount');
+        if ($discount===true) {
+            $builder->where('discount','>',0);
+        }
         if ($category) {
             $builder->whereHas('categories', fn($q) => $q->where('id',$category));
         }
