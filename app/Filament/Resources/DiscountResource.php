@@ -26,8 +26,13 @@ class DiscountResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->label('Title')
                     ->required(),
+                    Forms\Components\TextInput::make('titleAr')
+                    ->label('ArabicTitle')
+                    ->required(),
                 Forms\Components\TextInput::make('description')
                     ->label('Description'),
+                    Forms\Components\TextInput::make('descriptionAr')
+                    ->label('Arabic Description'),
                 Forms\Components\DateTimePicker::make('startAt')
                     ->label('Start at')
                     ->required(),
@@ -57,7 +62,11 @@ class DiscountResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('percent')
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Title'),
+                    Tables\Columns\TextColumn::make('titleAr')
+                    ->label('Arabic Title'),
+                    Tables\Columns\TextColumn::make('percent')
                     ->label('Percent'),
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Amount'),
