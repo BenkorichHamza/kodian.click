@@ -30,9 +30,11 @@ class ProductController extends Controller
             'categories',
             'tags',
             'brand',
-            "discounts"=>function ($q) {
-                    $q->where('endAt', '>=', now());
-                }
+            "discounts" => function ($q) {
+                $q->where('endAt', '>=', now())->where('startAt', '<=', now())
+                    ->orderByDesc('created_at')
+                    ->limit(1);
+            }
         ]
         )
         // ->where('isAvailable',true)
