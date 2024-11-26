@@ -30,4 +30,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class);
+    }
+
+
+
 }

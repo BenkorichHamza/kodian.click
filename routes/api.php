@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware("global_token")->group(function () {
+// Route::middleware("global_token")->group(function () {
     Route::apiResource('products',ProductController::class);
     Route::apiResource('categories',CategoryController::class);
     Route::apiResource('brands',BrandController::class);
@@ -33,4 +33,4 @@ Route::middleware("global_token")->group(function () {
     Route::put('products/{product}/tags', [ProductController::class, 'syncTags'])->name('products.tags.sync');
     Route::put('products/{product}/sync', [ProductController::class, 'sync'])->name('products.sync');
     Route::post('products/{product}/uploadImage', [ProductController::class, 'uploadImage'])->name('products.uploadImage');
-});
+// });

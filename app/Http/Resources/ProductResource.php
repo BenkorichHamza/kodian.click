@@ -40,6 +40,7 @@ class ProductResource extends JsonResource
             "isRelated"=>$this->isRelated,
             "inputPrice"=>$this->inputPrice,
             "img"=>$this->img,
+            "discounts"=>DiscountResource::collection($this->discounts),
             "categories"=>CategoryResource::collection($this->whenLoaded('categories')),
             "tags"=>CategoryResource::collection($this->whenLoaded('tags')),
             "brand"=>new BrandResource($this->whenLoaded('brand')),

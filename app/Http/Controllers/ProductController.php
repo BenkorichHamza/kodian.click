@@ -26,7 +26,16 @@ class ProductController extends Controller
     {
         $query = $request->query('query');
         $category = $request->query('category');
-        $builder = Product::with(['categories','tags','brand'])->where('isAvailable',true)
+        $builder = Product::with([
+            'categories',
+            'tags',
+            'brand',
+            "discounts"=>function ($q) {
+                    $q->where('endAt', '>=', now());
+                }
+        ]
+        )
+        // ->where('isAvailable',true)
         ->orderByRaw("CASE
             WHEN name LIKE '".$query."%'  THEN 0
             WHEN name LIKE '%".$query."%' THEN 1
@@ -58,7 +67,10 @@ class ProductController extends Controller
         }
         $discount = $request->query('discount');
         if ($discount=="true") {
-            $builder->where('discount','>',0);
+            $builder->whereHas('discounts', function ($q) {
+                $q->where('startAt', '<=', now())
+                    ->where('endAt', '>=', now());
+            });
         }
         if ($category) {
             $builder->whereHas('categories', fn($q) => $q->where('id',$category));
