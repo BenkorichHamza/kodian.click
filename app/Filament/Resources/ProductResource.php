@@ -37,6 +37,8 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('nameAr')->required(),
                 Forms\Components\TextInput::make('description')->required(),
                 Forms\Components\TextInput::make('descriptionAr')->required(),
+                Forms\Components\TextInput::make('code'),
+                Forms\Components\TextInput::make('barcode'),
                 Forms\Components\TextInput::make('price')->required(),
                 Forms\Components\TextInput::make('discount')->required(),
                 Forms\Components\Checkbox::make('isInteger')->default(true),
