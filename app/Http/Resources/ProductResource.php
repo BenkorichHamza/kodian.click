@@ -42,6 +42,7 @@ class ProductResource extends JsonResource
             "img"=>$this->img,
             "code"=>$this->code,
             "barcode"=>$this->barcode,
+            // "barcodes"=>BarcodeResource::collection($this->barcodes),
             "discounts"=>DiscountResource::collection($this->discounts),
             "categories"=>CategoryResource::collection($this->whenLoaded('categories')),
             "tags"=>CategoryResource::collection($this->whenLoaded('tags')),
