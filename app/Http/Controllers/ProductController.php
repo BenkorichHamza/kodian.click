@@ -13,6 +13,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
 
@@ -212,12 +213,33 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
+        // dd($request->all());
+
+        if ($request->hasFile('img')) {
+            $img = $request->file('img');
+
+            $filename = time() . '.' . $img->extension();
+            $image = Image::read($img);
+            $image
+            ->resize(200,200, function($constraint){
+                $constraint->aspectRatio();
+            })
+            ->save(('storage/'.$filename));
+            if($product->img != null)
+            {
+                $fn = basename($product->img);
+                Storage::disk('public')->delete($fn);
+            }
+            $product->img = $filename;
+        }
+
+
 
         $product->update($request->except('categories','tags','img'));
         $product->categories()->sync($request->categories);
         $product->tags()->sync($request->tags);
 
-        $product->load(['categories','tags']);
+        $product->load(['categories','brand']);
         return new ProductResource($product);
     }
 

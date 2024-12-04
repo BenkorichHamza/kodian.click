@@ -25,12 +25,13 @@ class ProductUpdateRequest extends FormRequest
             "name"=>'string|max:255|min:3',
             "description"=>"string|max:255|min:3",
             "price"=>'integer',
-            "img"=>'url',
+            "img"=>'image|mimes:jpeg,png,jpg,gif,svg',
             "discount"=>'integer',
             'categories'=>'array',
             'categories.*'=>'integer|exists:categories,id',
             'tags'=>'array',
             'tags.*'=>'integer|exists:tags,id',
+            "brand_id" => 'integer|exists:brands,id',
         ];
     }
 }
