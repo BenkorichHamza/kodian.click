@@ -264,7 +264,11 @@ class ProductController extends Controller
         // $product->categories()->sync($request->categories);
         // $product->tags()->sync($request->tags);
 
-        $product->load(['categories','brand']);
+        $product->load(['categories','brand', "discounts" => function ($q) {
+            $q->where('endAt', '>=', now())->where('startAt', '<=', now())
+                ->orderByDesc('created_at')
+                ->limit(1);
+        }]);
         return new ProductResource($product);
     }
 
