@@ -254,6 +254,10 @@ class ProductController extends Controller
             $product->img = $filename;
         }
 
+        if($request->barcode != null)
+        {
+            Product::where('barcode',$request->barcode)->where('id','!=',$product->id)->update(['barcode'=>null]);
+        }
 
 
         $product->update($request->except('categories','tags','img'));
