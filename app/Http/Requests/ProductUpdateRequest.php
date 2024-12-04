@@ -27,7 +27,7 @@ class ProductUpdateRequest extends FormRequest
             "price"=>'integer',
             "img"=>'image|mimes:jpeg,png,jpg,gif,svg',
             "discount"=>'integer',
-            "barcode" => 'nullable|string|unique:products,barcode',
+            "barcode" => 'nullable|string',
             'categories'=>'array',
             'categories.*'=>'integer|exists:categories,id',
             'tags'=>'array',
