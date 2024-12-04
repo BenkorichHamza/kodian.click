@@ -25,6 +25,22 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $barcode = $request->query('barcode');
+        $builder= Product::with([
+            'categories',
+            'tags',
+            'brand',
+            "discounts" => function ($q) {
+                $q->where('endAt', '>=', now())->where('startAt', '<=', now())
+                    ->orderByDesc('created_at')
+                    ->limit(1);
+            }
+        ]
+        );
+        if($barcode){
+           $builder->where('barcode',$barcode);
+
+        }else{
         $query = $request->query('query');
         $category = $request->query('category');
         $builder = Product::with([
@@ -78,17 +94,14 @@ class ProductController extends Controller
         if ($category) {
             $builder->whereHas('categories', fn($q) => $q->where('id',$category));
         }
-        $barcode = $request->query('barcode');
-        if($barcode){
-            $builder->where('barcode',$barcode);
-        }
+
         $favorites = $request->query('favorites');
         if ($favorites) {
             $ids = explode(",",$favorites);
             $builder->whereIn('id',$ids);
         }
 
-
+    }
         $products = $builder->paginate(20)->withQueryString();
         $brands=$builder->groupBy('brand_id')->paginate(100);
         return response()->json([
