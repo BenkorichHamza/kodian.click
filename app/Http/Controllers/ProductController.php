@@ -78,6 +78,10 @@ class ProductController extends Controller
         if ($category) {
             $builder->whereHas('categories', fn($q) => $q->where('id',$category));
         }
+        $barcode = $request->query('barcode');
+        if($barcode){
+            $builder->where('barcode',$barcode);
+        }
         $favorites = $request->query('favorites');
         if ($favorites) {
             $ids = explode(",",$favorites);
