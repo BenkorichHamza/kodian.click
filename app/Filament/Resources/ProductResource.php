@@ -45,8 +45,6 @@ class ProductResource extends Resource
                 Forms\Components\Checkbox::make('inputPrice')->default(false),
                 Forms\Components\TextInput::make('unit')->default("U"),
                 Forms\Components\TextInput::make('step')->default(1),
-                Forms\Components\TagsInput::make('barcodes')->relationShip("barcodes","code"),
-
                 Forms\Components\Select::make('categories')
                     ->multiple()
                     ->relationship('categories', 'name')->preload(),
