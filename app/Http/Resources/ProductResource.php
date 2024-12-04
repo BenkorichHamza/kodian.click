@@ -26,7 +26,7 @@ class ProductResource extends JsonResource
             "nameAr"=>$this->nameAr,
             "description"=>$this->description,
             "descriptionAr"=>$this->descriptionAr,
-            "price"=>$this->price,
+            "price"=>(int)$this->price,
             "discount"=>$this->discount,
             "max"=>$this->max,
             "min"=>$this->min,
