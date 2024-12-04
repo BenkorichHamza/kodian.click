@@ -100,6 +100,7 @@ class ProductController extends Controller
     {
         $query = $request->query('query');
         $category = $request->query('category');
+        $barcode = $request->query('barcode');
         $builder = Product::with(['categories','tags','brand'])->where('isAvailable',true)
         ->orderByRaw("CASE
             WHEN name LIKE '".$query."%'  THEN 0
@@ -122,6 +123,9 @@ class ProductController extends Controller
 
         if ($category) {
             $builder->whereHas('categories', fn($q) => $q->whereId($category));
+        }
+        if($barcode){
+            $builder->where('barcode',$barcode);
         }
         $brand = $request->query('brand');
         if ($brand) {
