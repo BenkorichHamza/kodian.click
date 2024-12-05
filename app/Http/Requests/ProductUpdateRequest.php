@@ -32,7 +32,7 @@ class ProductUpdateRequest extends FormRequest
             'categories.*'=>'integer|exists:categories,id',
             'tags'=>'array',
             'tags.*'=>'integer|exists:tags,id',
-            "brand_id" => 'integer|exists:brands,id',
+            "brand_id" => 'nullable|integer|exists:brands,id',
         ];
     }
 }
