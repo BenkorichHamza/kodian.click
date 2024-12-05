@@ -25,6 +25,7 @@ class ProductUpdateRequest extends FormRequest
             "name"=>'string|max:255|min:3',
             "description"=>"string|max:255|min:3",
             "price"=>'integer',
+            "isAvailable"=>'integer|in:0,1',
             "img"=>'image|mimes:jpeg,png,jpg,gif,svg',
             "discount"=>'integer',
             "barcode" => 'nullable|string',
