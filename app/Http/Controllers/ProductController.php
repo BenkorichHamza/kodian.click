@@ -26,6 +26,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $barcode = $request->query('barcode');
+        $all = $request->query('all');
         $builder= Product::with([
             'categories',
             'tags',
@@ -41,20 +42,12 @@ class ProductController extends Controller
            $builder->where('barcode',$barcode);
 
         }else{
+            if(!$all){
+                $builder->where('isAvailable',true);
+            }
         $query = $request->query('query');
         $category = $request->query('category');
-        $builder = Product::with([
-            'categories',
-            'tags',
-            'brand',
-            "discounts" => function ($q) {
-                $q->where('endAt', '>=', now())->where('startAt', '<=', now())
-                    ->orderByDesc('created_at')
-                    ->limit(1);
-            }
-        ]
-        )
-        // ->where('isAvailable',true)
+        $builder
         ->orderByRaw("CASE
             WHEN name LIKE '".$query."%'  THEN 0
             WHEN name LIKE '%".$query."%' THEN 1
