@@ -73,7 +73,17 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query."%"));
         });
 
-
+        $words = explode(' ', $query);
+        $builder->orWhere(function ($q) use ($words) {
+            foreach ($words as $word) {
+                $q->orWhere(function ($q) use ($word) {
+                    $q->where("name", "LIKE", "%{$word}%")
+                        ->orWhere("nameAr", "LIKE", "%{$word}%")
+                        ->orWhere("description", "LIKE", "%{$word}%")
+                        ->orWhere("descriptionAr", "LIKE", "%{$word}%");
+                });
+            }
+        });
         $brand = $request->query('brand');
         if ($brand) {
             $builder->where('brand_id',$brand);
@@ -251,11 +261,11 @@ class ProductController extends Controller
                 $constraint->aspectRatio();
             })
             ->save(('storage/'.$filename));
-            if($product->img != null)
-            {
-                $fn = basename($product->img);
-                Storage::disk('public')->delete($fn);
-            }
+            // if($product->img != null)
+            // {
+            //     $fn = basename($product->img);
+            //     Storage::disk('public')->delete($fn);
+            // }
             $product->img = $filename;
         }
 
