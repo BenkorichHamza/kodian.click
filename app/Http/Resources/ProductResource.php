@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
             "discount"=>(int)$this->discount,
             "max"=>(double)$this->max,
             "min"=>(double)$this->min,
-            "step"=>(double)$this->step,
+            "step"=>$this->step,
             "unit"=>$this->unit,
             "isInteger"=>(int)$this->isInteger,
             "isFeatured"=>(int)$this->isFeatured,
