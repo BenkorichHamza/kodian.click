@@ -73,17 +73,17 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query."%"));
         });
 
-        $words = explode(' ', $query);
-        $builder->orWhere(function ($q) use ($words) {
-            foreach ($words as $word) {
-                $q->orWhere(function ($q) use ($word) {
-                    $q->where("name", "LIKE", "%{$word}%")
-                        ->orWhere("nameAr", "LIKE", "%{$word}%")
-                        ->orWhere("description", "LIKE", "%{$word}%")
-                        ->orWhere("descriptionAr", "LIKE", "%{$word}%");
-                });
-            }
-        });
+        // $words = explode(' ', $query);
+        // $builder->orWhere(function ($q) use ($words) {
+        //     foreach ($words as $word) {
+        //         $q->orWhere(function ($q) use ($word) {
+        //             $q->where("name", "LIKE", "%{$word}%")
+        //                 ->orWhere("nameAr", "LIKE", "%{$word}%")
+        //                 ->orWhere("description", "LIKE", "%{$word}%")
+        //                 ->orWhere("descriptionAr", "LIKE", "%{$word}%");
+        //         });
+        //     }
+        // });
         $brand = $request->query('brand');
         if ($brand) {
             $builder->where('brand_id',$brand);
