@@ -241,7 +241,6 @@ class ProductController extends Controller
     {
         // dd($request->all());
 
-Product::query()->update(['description' => DB::raw('name')]);
         if ($request->hasFile('img')) {
             $img = $request->file('img');
 
