@@ -198,7 +198,18 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-
+    $barcode = $request->barcode;
+    if ($barcode) {
+        // return response("no data",255);
+        $existingProduct = Product::where('barcode', $barcode)->orWhere('name',$request->name)->first();
+        if ($existingProduct) {
+            // return $barcode;
+            $existingProduct->update($request->except('categories', 'tags'));
+            $existingProduct->categories()->sync($request->categories);
+            // $existingProduct->tags()->sync($request->tags);
+            return new ProductResource($existingProduct->fresh()->load(['categories', 'tags']));
+        }
+    }
         $product = Product::create($request->except('categories','tags'));
         $product->categories()->sync($request->categories);
         $product->tags()->sync($request->tags);

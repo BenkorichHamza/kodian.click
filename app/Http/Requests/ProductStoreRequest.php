@@ -22,9 +22,11 @@ class ProductStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>'required|string|max:255|min:3|unique:products',
+            "name"=>'required|string|max:255|min:3',
             "description"=>"string|max:255|min:3",
             "price"=>'integer',
+            "code"=>'string',
+            "barcode"=>'string',
             "img"=>'url',
             "discount"=>'integer',
             'categories'=>'array',

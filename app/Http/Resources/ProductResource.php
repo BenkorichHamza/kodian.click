@@ -16,7 +16,7 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if (!filter_var($this->img, FILTER_VALIDATE_URL)) {
+        if ($this["img"] && !filter_var($this->img, FILTER_VALIDATE_URL)) {
             $this["img"] = env('APP_URL') . Storage::url($this->img);
         }
 
