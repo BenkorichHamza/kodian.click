@@ -13,6 +13,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -240,6 +241,7 @@ class ProductController extends Controller
     {
         // dd($request->all());
 
+Product::query()->update(['description' => DB::raw('name')]);
         if ($request->hasFile('img')) {
             $img = $request->file('img');
 
