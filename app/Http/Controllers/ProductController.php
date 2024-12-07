@@ -109,12 +109,14 @@ class ProductController extends Controller
     }
         $products = $builder->paginate(20)->withQueryString();
         $brands=$builder->groupBy('brand_id')->paginate(100);
+        $featuredProducts = Product::where('isFeatured',true)->with(['categories','tags','brand'])->paginate(100);
+        $newProducts = Product::where('isNew',true)->with(['categories','tags','brand'])->paginate(100);
         return response()->json([
             'products' => ProductResource::collection($products)->response()->getData(true),
             'brands' => ProductResource::collection($brands),
+            'featured' => ProductResource::collection($featuredProducts),
+            'new' => ProductResource::collection($newProducts),
         ]);
-
-
 
     }
 

@@ -28,6 +28,8 @@ class ProductStoreRequest extends FormRequest
             "code"=>'string',
             "barcode"=>'string',
             "isAvailable"=>'integer|in:0,1',
+            "isFeatured"=>'integer|in:0,1',
+            "isNew"=>'integer|in:0,1',
             "img"=>'url',
             "discount"=>'integer',
             'categories'=>'array',
