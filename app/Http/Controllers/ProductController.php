@@ -28,6 +28,7 @@ class ProductController extends Controller
     {
         $barcode = $request->query('barcode');
         $all = $request->query('all');
+        $available=$request->query('available');
         $builder= Product::with([
             'categories',
             'tags',
@@ -44,7 +45,12 @@ class ProductController extends Controller
 
         }else{
             if(!$all){
-                $builder->where('isAvailable',true);
+                if($available){
+                    $builder->where('isAvailable',true);
+                }else{
+                    $builder->where('isAvailable',false);
+
+                }
             }
         $query = $request->query('query');
         $category = $request->query('category');
