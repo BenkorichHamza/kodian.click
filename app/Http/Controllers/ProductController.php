@@ -105,6 +105,10 @@ class ProductController extends Controller
             $ids = explode(",",$favorites);
             $builder->whereIn('id',$ids);
         }
+        if(!$request->query('showAll')){
+            $builder->whereNotNull('img')->where('img', '!=', '');
+        }
+
 
     }
         $f = clone $builder;
