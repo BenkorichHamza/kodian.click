@@ -110,7 +110,7 @@ class ProductController extends Controller
         $f = clone $builder;
         $n = clone $builder;
         $br = clone $builder;
-        $products = $builder->where('isFeatured',false)->orWhereNull('isFeatured')->paginate(100)->withQueryString();
+        $products = $builder->where('isFeatured',false)->orWhereNull('isFeatured')->paginate(20)->withQueryString();
         $brands=$br->groupBy('brand_id')->paginate(100);
         $featuredProducts = $f->where('isFeatured',true)->with(['categories','tags','brand'])->paginate(100);
         $newProducts = $n->where('isNew',true)->with(['categories','tags','brand'])->paginate(100);
