@@ -107,7 +107,22 @@ class ProductController extends Controller
         }
         if(!$request->query('showAll')){
 
-            $builder->whereNotNull('img')->where('img', '!=', '');
+            $builder->whereNotNull('img')
+                ->where('img', '!=', '')
+                ->where(function ($q) {
+                    $q->where(function ($q) {
+                        $q->where('img', 'LIKE', 'http%')
+                            ->where('img', 'LIKE', '%.jpg')
+                            ->orWhere('img', 'LIKE', '%.jpeg')
+                            ->orWhere('img', 'LIKE', '%.png')
+                            ->orWhere('img', 'LIKE', '%.gif')
+                            ->orWhere('img', 'LIKE', '%.webp');
+                    })->orWhere(function ($q) {
+                        $q->where('img', 'LIKE', 'data:image/%')
+                            ->where('img', 'LIKE', '%;base64,%');
+                    });
+                });
+
         }else{
 
 
