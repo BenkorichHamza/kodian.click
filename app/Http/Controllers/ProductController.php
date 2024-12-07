@@ -114,8 +114,8 @@ class ProductController extends Controller
         return response()->json([
             'products' => ProductResource::collection($products)->response()->getData(true),
             'brands' => ProductResource::collection($brands),
-            'featured' => ProductResource::collection($featuredProducts),
-            'new' => ProductResource::collection($newProducts),
+            'featuredProducts' => ProductResource::collection($featuredProducts),
+            'newProducts' => ProductResource::collection($newProducts),
         ]);
 
     }
