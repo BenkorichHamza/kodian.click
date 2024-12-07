@@ -106,7 +106,19 @@ class ProductController extends Controller
             $builder->whereIn('id',$ids);
         }
         if(!$request->query('showAll')){
+
             $builder->whereNotNull('img')->where('img', '!=', '');
+        }else{
+
+
+                $imgFilter = $request->query('imageFilter');
+                if ($imgFilter == '2') {
+                    $builder->where(function ($q) {
+                        $q->whereNull('img')->orWhere('img', '');
+                    });
+                }
+
+
         }
 
 
