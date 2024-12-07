@@ -46,10 +46,11 @@ class ProductController extends Controller
         }else{
             if(!$all){
                 if($available){
-                    $builder->where('isAvailable',true);
-                }else{
-                    $builder->where('isAvailable',false);
-
+                    if($available=="true"){
+                        $builder->where('isAvailable',true);
+                    }else{
+                        $builder->where('isAvailable',false);
+                    }
                 }
             }
         $query = $request->query('query');
