@@ -109,14 +109,9 @@ class ProductController extends Controller
     }
         $products = $builder->paginate(20)->withQueryString();
         $brands=$builder->groupBy('brand_id')->paginate(100);
-        $featuredProducts=[];
-        $newProducts=[];
-        if(!$brand && !$category && !$query){
-            $featuredProducts = Product::where('isFeatured',true)->with(['categories','tags','brand'])->paginate(100);
-        $newProducts = Product::where('isNew',true)->with(['categories','tags','brand'])->paginate(100);
-
-        }
-         return response()->json([
+        $featuredProducts = $builder->where('isFeatured',true)->with(['categories','tags','brand'])->paginate(100);
+        $newProducts = $builder->where('isNew',true)->with(['categories','tags','brand'])->paginate(100);
+        return response()->json([
             'products' => ProductResource::collection($products)->response()->getData(true),
             'brands' => ProductResource::collection($brands),
             'featuredProducts' => ProductResource::collection($featuredProducts),
