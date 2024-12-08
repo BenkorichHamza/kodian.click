@@ -56,7 +56,8 @@ class ProductController extends Controller
                 }
             }
         $query = $request->query('query');
-        $query1 = str_replace(' ', '%', $query);
+        $query1 = str_replace('%', '', trim($query));
+        $query1 = str_replace(' ', '%', trim($query1));
         $category = $request->query('category');
         $builder
         ->orderByRaw("CASE
@@ -81,17 +82,6 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$query1."%"))
             ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$query1."%"))
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query1."%"));
-             $words = explode('%', $query1);
-        $q->orWhere(function ($q) use ($words) {
-            foreach ($words as $word) {
-                $q->orWhere(function ($q) use ($word) {
-                    $q->where("name", "LIKE", "%{$word}%")
-                        ->orWhere("nameAr", "LIKE", "%{$word}%")
-                        ->orWhere("description", "LIKE", "%{$word}%")
-                        ->orWhere("descriptionAr", "LIKE", "%{$word}%");
-                });
-            }
-        });
         });
 
 
