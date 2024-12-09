@@ -56,6 +56,8 @@ class ProductController extends Controller
                 }
             }
         $query = $request->query('query');
+        $words = explode(' ', $query);
+
         $query1 = str_replace('%', '', trim($query));
         $query1 = str_replace(' ', '%', trim($query1));
         $category = $request->query('category');
@@ -84,6 +86,24 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query1."%"));
         });
 
+        for ($i=0; $i < 12; $i++) {
+            shuffle($words);
+           $qu= implode(' ',$words);
+            $builder->where(function ($q) use ($qu) {
+                $q->where("name","LIKE","%".$qu."%")
+                ->orWhere("nameAr","LIKE","%".$qu."%")
+                ->orWhere("description","LIKE","%".$qu."%")
+                ->orWhere("descriptionAr","LIKE","%".$qu."%")
+                ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$qu."%"))
+                ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$qu."%"))
+                ->orWhereHas('categories', fn($q) => $q->where("description","LIKE","%".$qu."%"))
+                ->orWhereHas('categories', fn($q) => $q->where("descriptionAr","LIKE","%".$qu."%"))
+                ->orWhereHas('brand', fn($q) => $q->where("name","LIKE","%".$qu."%"))
+                ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$qu."%"))
+                ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$qu."%"))
+                ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$qu."%"));
+            });
+        }
 
         $brand = $request->query('brand');
         if ($brand) {
