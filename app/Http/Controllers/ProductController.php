@@ -87,7 +87,7 @@ class ProductController extends Controller
         })
         ->orWhere(function ($q) use ($words) {
             foreach ($words as $word) {
-                $q=$q->where("name","LIKE","%".$word."%")
+                $q->where("name","LIKE","%".$word."%")
                 ->orWhere("nameAr","LIKE","%".$word."%")
                 ->orWhere("description","LIKE","%".$word."%")
                 ->orWhere("descriptionAr","LIKE","%".$word."%")
