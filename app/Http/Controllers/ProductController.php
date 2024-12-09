@@ -103,24 +103,6 @@ class ProductController extends Controller
         })
         ;
 
-        $builder->orWhere(function ($q) use ($words) {
-            foreach ($words as $word) {
-                $soundexCode = soundex($word);
-                $q->whereRaw("SOUNDEX(name) = ?", [$soundexCode])
-                  ->orWhereRaw("SOUNDEX(nameAr) = ?", [$soundexCode])
-                  ->orWhereRaw("SOUNDEX(description) = ?", [$soundexCode])
-                  ->orWhereRaw("SOUNDEX(descriptionAr) = ?", [$soundexCode])
-                  ->orWhereHas('categories', fn($q) => $q->whereRaw("SOUNDEX(name) = ?", [$soundexCode]))
-                  ->orWhereHas('categories', fn($q) => $q->whereRaw("SOUNDEX(nameAr) = ?", [$soundexCode]))
-                  ->orWhereHas('categories', fn($q) => $q->whereRaw("SOUNDEX(description) = ?", [$soundexCode]))
-                  ->orWhereHas('categories', fn($q) => $q->whereRaw("SOUNDEX(descriptionAr) = ?", [$soundexCode]))
-                  ->orWhereHas('brand', fn($q) => $q->whereRaw("SOUNDEX(name) = ?", [$soundexCode]))
-                  ->orWhereHas('brand', fn($q) => $q->whereRaw("SOUNDEX(nameAr) = ?", [$soundexCode]))
-                  ->orWhereHas('brand', fn($q) => $q->whereRaw("SOUNDEX(description) = ?", [$soundexCode]))
-                  ->orWhereHas('brand', fn($q) => $q->whereRaw("SOUNDEX(descriptionAr) = ?", [$soundexCode]));
-            }
-        });
-
 
         $brand = $request->query('brand');
         if ($brand) {
