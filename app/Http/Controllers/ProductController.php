@@ -87,18 +87,18 @@ class ProductController extends Controller
         })
         ->where(function ($q) use ($words) {
             foreach ($words as $word) {
-                $q->where("name","LIKE","%".$words."%")
-            ->orWhere("nameAr","LIKE","%".$words."%")
-            ->orWhere("description","LIKE","%".$words."%")
-            ->orWhere("descriptionAr","LIKE","%".$words."%")
-            ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$words."%"))
-            ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$words."%"))
-            ->orWhereHas('categories', fn($q) => $q->where("description","LIKE","%".$words."%"))
-            ->orWhereHas('categories', fn($q) => $q->where("descriptionAr","LIKE","%".$words."%"))
-            ->orWhereHas('brand', fn($q) => $q->where("name","LIKE","%".$words."%"))
-            ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$words."%"))
-            ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$words."%"))
-            ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$words."%"));
+                $q->where("name","LIKE","%".$word."%")
+            ->orWhere("nameAr","LIKE","%".$word."%")
+            ->orWhere("description","LIKE","%".$word"%")
+            ->orWhere("descriptionAr","LIKE","%".$word."%")
+            ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$word."%"))
+            ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
+            ->orWhereHas('categories', fn($q) => $q->where("description","LIKE","%".$word."%"))
+            ->orWhereHas('categories', fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"))
+            ->orWhereHas('brand', fn($q) => $q->where("name","LIKE","%".$word."%"))
+            ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
+            ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$word."%"))
+            ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"));
             }
         })
         ;
