@@ -56,7 +56,7 @@ class ProductController extends Controller
                 }
             }
         $query = $request->query('query');
-        $words = explode(' ', $query);
+        $words = explode(' ', trim($query));
 
         $query1 = str_replace('%', '', trim($query));
         $query1 = str_replace(' ', '%', trim($query1));
@@ -88,7 +88,8 @@ class ProductController extends Controller
 
         for ($i=0; $i < 12; $i++) {
             shuffle($words);
-           $qu= implode(' ',$words);
+            $qu= implode(' ',$words);
+            $qu=str_replace(' ', '%', $qu);
             $builder->orWhere(function ($q) use ($qu) {
                 $q->where("name","LIKE","%".$qu."%")
                 ->orWhere("nameAr","LIKE","%".$qu."%")
