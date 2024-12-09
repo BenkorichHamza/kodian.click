@@ -89,7 +89,7 @@ class ProductController extends Controller
         for ($i=0; $i < 12; $i++) {
             shuffle($words);
            $qu= implode(' ',$words);
-            $builder->where(function ($q) use ($qu) {
+            $builder->orWhere(function ($q) use ($qu) {
                 $q->where("name","LIKE","%".$qu."%")
                 ->orWhere("nameAr","LIKE","%".$qu."%")
                 ->orWhere("description","LIKE","%".$qu."%")
