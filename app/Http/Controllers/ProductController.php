@@ -89,7 +89,7 @@ class ProductController extends Controller
             foreach ($words as $word) {
                 $q->where("name","LIKE","%".$word."%")
             ->orWhere("nameAr","LIKE","%".$word."%")
-            ->orWhere("description","LIKE","%".$word"%")
+            ->orWhere("description","LIKE","%".$word."%")
             ->orWhere("descriptionAr","LIKE","%".$word."%")
             ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$word."%"))
             ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
