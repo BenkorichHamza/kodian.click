@@ -61,7 +61,9 @@ class ProductController extends Controller
         $query1 = str_replace('%', '', trim($query));
         $query1 = str_replace(' ', '%', trim($query1));
         $category = $request->query('category');
-        $builder
+        $builder->where(
+            function($builder1)
+        {$builder1
         ->orderByRaw("CASE
             WHEN name LIKE '".$query1."%'  THEN 0
             WHEN name LIKE '%".$query1."%' THEN 1
@@ -85,7 +87,7 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$query1."%"))
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query1."%"));
         });
-        $builder->where(function ($q) use ($words) {
+        $builder1->orWhere(function ($q) use ($words) {
             foreach ($words as $word) {
                     $q->where(function ($q1) use ($word) {
                         $q1->where("name","LIKE","%".$word."%")
@@ -108,7 +110,7 @@ class ProductController extends Controller
 
 ;
 
-
+});
 
         // for ($i=0; $i < 12; $i++) {
         //     shuffle($words);
