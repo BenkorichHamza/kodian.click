@@ -86,22 +86,22 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query1."%"));
         });
         $builder->orWhere(function ($q) use ($words) {
-            $q->where(function ($q1) use ($words) {
-                foreach ($words as $word) {
-                    $q1->where(fn($q) => $q->where("name","LIKE","%".$word."%"))
-                    ->orWhere(fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
-                    ->orWhere(fn($q) => $q->where("description","LIKE","%".$word."%"))
-                    ->orWhere(fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"))
-                    ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$word."%"))
-                    ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
-                    ->orWhereHas('categories', fn($q) => $q->where("description","LIKE","%".$word."%"))
-                    ->orWhereHas('categories', fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"))
-                    ->orWhereHas('brand', fn($q) => $q->where("name","LIKE","%".$word."%"))
-                    ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
-                    ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$word."%"))
-                    ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"));
+            foreach ($words as $word) {
+                    $q->where(function ($q1) use ($word) {
+                        $q1->where("name","LIKE","%".$word."%")
+                        ->orWhere("nameAr","LIKE","%".$word."%")
+                        ->orWhere("description","LIKE","%".$word."%")
+                        ->orWhere("descriptionAr","LIKE","%".$word."%")
+                        ->orWhereHas('categories', fn($q) => $q->where("name","LIKE","%".$word."%"))
+                        ->orWhereHas('categories', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
+                        ->orWhereHas('categories', fn($q) => $q->where("description","LIKE","%".$word."%"))
+                        ->orWhereHas('categories', fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"))
+                        ->orWhereHas('brand', fn($q) => $q->where("name","LIKE","%".$word."%"))
+                        ->orWhereHas('brand', fn($q) => $q->where("nameAr","LIKE","%".$word."%"))
+                        ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$word."%"))
+                        ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$word."%"));
+                    });
                 }
-            });
 }
 )
 
