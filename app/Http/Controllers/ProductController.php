@@ -55,15 +55,17 @@ class ProductController extends Controller
                     $builder->where('isAvailable',true);
                 }
             }
-        $query = $request->query('query');
-        $words = explode(' ', trim($query));
 
-        $query1 = str_replace('%', '', trim($query));
-        $query1 = str_replace(' ', '%', trim($query1));
         $category = $request->query('category');
         $builder->where(
-            function($builder1)
-        {$builder1
+            function($builder1) use($request)
+        {
+            $query = $request->query('query');
+            $words = explode(' ', trim($query));
+
+            $query1 = str_replace('%', '', trim($query));
+            $query1 = str_replace(' ', '%', trim($query1));
+            $builder1
         ->orderByRaw("CASE
             WHEN name LIKE '".$query1."%'  THEN 0
             WHEN name LIKE '%".$query1."%' THEN 1
