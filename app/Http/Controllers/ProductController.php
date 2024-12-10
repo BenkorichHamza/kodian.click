@@ -72,7 +72,7 @@ class ProductController extends Controller
             ELSE 3
         END")
         ->where(function ($q) use ($query1) {
-            $q->where("name","LIKE","%".$query1."%")
+            $q->orWhere("name","LIKE","%".$query1."%")
             ->orWhere("nameAr","LIKE","%".$query1."%")
             ->orWhere("description","LIKE","%".$query1."%")
             ->orWhere("descriptionAr","LIKE","%".$query1."%")
