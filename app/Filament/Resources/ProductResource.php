@@ -35,7 +35,7 @@ class ProductResource extends Resource
                     Forms\Components\Checkbox::make('isNew')->default(false),
                 ]),
                 Forms\Components\TextInput::make('name')->unique()->required(),
-                Forms\Components\TextInput::make('nameAr')->required()->default(''),
+                Forms\Components\TextInput::make('nameAr')->default(''),
                 Forms\Components\TextInput::make('description')->default(''),
                 Forms\Components\TextInput::make('descriptionAr')->default(''),
                 Forms\Components\TextInput::make('code'),
