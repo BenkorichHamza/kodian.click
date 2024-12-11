@@ -34,7 +34,7 @@ class ProductResource extends Resource
                     Forms\Components\Checkbox::make('isSponsored')->default(false),
                     Forms\Components\Checkbox::make('isNew')->default(false),
                 ]),
-                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('name')->unique()->required(),
                 Forms\Components\TextInput::make('nameAr')->required(),
                 Forms\Components\TextInput::make('description')->required(),
                 Forms\Components\TextInput::make('descriptionAr')->required(),
