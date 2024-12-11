@@ -285,23 +285,41 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-    $barcode = $request->barcode;
-    if ($barcode) {
-        // return response("no data",255);
-        $existingProduct = Product::where('barcode', $barcode)->orWhere('name',$request->name)->first();
-        if ($existingProduct) {
-            // return $barcode;
-            $existingProduct->update($request->except('categories', 'tags'));
-            $existingProduct->categories()->sync($request->categories);
-            // $existingProduct->tags()->sync($request->tags);
-            return new ProductResource($existingProduct->fresh()->load(['categories', 'tags']));
-        }
-    }
-        $product = Product::create($request->except('categories','tags'));
-        $product->categories()->sync($request->categories);
-        $product->tags()->sync($request->tags);
 
-        return new ProductResource($product->fresh()->load(["categories","tags"]));
+
+        if($request->barcode != null)
+        {
+            Product::where('barcode',$request->barcode)->where('id','!=',$product->id)->update(['barcode'=>null]);
+        }
+
+
+        $product=Product::create($request->except('categories','tags','img'));
+        $product->categories()->sync($request->categories);
+        // $product->tags()->sync($request->tags);
+
+        $product->load(['categories','brand', "discounts" => function ($q) {
+            $q->where('endAt', '>=', now())->where('startAt', '<=', now())
+                ->orderByDesc('created_at')
+                ->limit(1);
+        }]);
+        if ($request->hasFile('img')) {
+            $img = $request->file('img');
+
+            $filename = time() . '.' . $img->extension();
+            $image = Image::read($img);
+            $image
+            ->resize(1000,1000, function($constraint){
+                $constraint->aspectRatio();
+            })
+            ->save(('storage/'.$filename));
+            // if($product->img != null)
+            // {
+            //     $fn = basename($product->img);
+            //     Storage::disk('public')->delete($fn);
+            // }
+            $product->img = $filename;
+        }
+        return new ProductResource($product);
     }
 
     /**
