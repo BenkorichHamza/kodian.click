@@ -289,7 +289,7 @@ class ProductController extends Controller
 
         if($request->barcode != null)
         {
-            Product::where('barcode',$request->barcode)->where('id','!=',$product->id)->update(['barcode'=>null]);
+            Product::where('barcode',$request->barcode)->update(['barcode'=>null]);
         }
 
 
