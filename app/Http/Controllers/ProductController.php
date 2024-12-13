@@ -345,8 +345,8 @@ class ProductController extends Controller
     {
         // dd($request->all());
 
-        if ($request->hasFile('img')) {
-            $img = $request->file('img');
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
 
             $filename = time() . '.' . $img->extension();
             $image = Image::read($img);
