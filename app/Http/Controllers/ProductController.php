@@ -361,6 +361,8 @@ class ProductController extends Controller
             //     Storage::disk('public')->delete($fn);
             // }
             $product->img = $filename;
+            $product->save();
+
         }
 
         if($request->barcode != null)
@@ -369,7 +371,7 @@ class ProductController extends Controller
         }
 
 
-        $product->update(array_merge($request->except('categories','tags','img'), ['img' => $product->img]));
+        $product->update($request->except('categories','tags'));
         $product->categories()->sync($request->categories);
         // $product->tags()->sync($request->tags);
 
