@@ -318,6 +318,7 @@ class ProductController extends Controller
             //     Storage::disk('public')->delete($fn);
             // }
             $product->img = $filename;
+            $product->save();
         }
         return new ProductResource($product);
     }
