@@ -369,7 +369,7 @@ class ProductController extends Controller
         }
 
 
-        $product->update($request->except('categories','tags','img'));
+        $product->update(array_merge($request->except('categories','tags','img'), ['img' => $product->img]));
         $product->categories()->sync($request->categories);
         // $product->tags()->sync($request->tags);
 
