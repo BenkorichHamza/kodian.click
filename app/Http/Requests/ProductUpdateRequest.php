@@ -28,7 +28,7 @@ class ProductUpdateRequest extends FormRequest
             "isAvailable"=>'integer|in:0,1',
             "isFeatured"=>'integer|in:0,1',
             "isNew"=>'integer|in:0,1',
-            "img"=>'image|mimes:jpeg,png,jpg,gif,svg',
+            "image"=>'image|mimes:jpeg,png,jpg,gif,svg',
             "discount"=>'integer',
             "barcode" => 'nullable|string',
             'categories'=>'array',

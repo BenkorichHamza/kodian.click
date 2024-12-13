@@ -371,7 +371,7 @@ class ProductController extends Controller
         }
 
 
-        $product->update($request->except('categories','tags'));
+        $product->update($request->except('categories','tags','img'));
         $product->categories()->sync($request->categories);
         // $product->tags()->sync($request->tags);
 

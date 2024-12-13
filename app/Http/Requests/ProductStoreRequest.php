@@ -30,7 +30,7 @@ class ProductStoreRequest extends FormRequest
             "isAvailable"=>'integer|in:0,1',
             "isFeatured"=>'integer|in:0,1',
             "isNew"=>'integer|in:0,1',
-            "img"=>'file|mimes:jpeg,jpg,png,gif,svg',
+            "image"=>'file|mimes:jpeg,jpg,png,gif,svg',
             "discount"=>'integer',
             'categories'=>'array',
             'categories.*'=>'integer|exists:categories,id',
