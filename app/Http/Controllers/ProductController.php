@@ -302,8 +302,8 @@ class ProductController extends Controller
                 ->orderByDesc('created_at')
                 ->limit(1);
         }]);
-        if ($request->hasFile('img')) {
-            $img = $request->file('img');
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
 
             $filename = time() . '.' . $img->extension();
             $image = Image::read($img);
