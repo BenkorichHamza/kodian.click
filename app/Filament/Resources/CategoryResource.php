@@ -36,7 +36,7 @@ class CategoryResource extends Resource
                     Forms\Components\TextInput::make('descriptionAr')
                     ->required()
                     ->maxLength(1024),
-                    Forms\Components\TextInput::make('order')
+                    Forms\Components\TextInput::make('order')->required()
                     ->integer(),
 
                 FileUpload::make('img')
