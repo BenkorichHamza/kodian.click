@@ -16,6 +16,7 @@ protected $fillable = [
     'description',
     'descriptionAr',
     'img',
+    'order',
 ];
 
     public function products()
