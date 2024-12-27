@@ -61,7 +61,7 @@ class ProductResource extends Resource
         return $table
             ->columns([
               "img" => Tables\Columns\ImageColumn::make('img'),
-              "isAvailable" => Tables\Columns\IconColumn::make('isAvailable')->boolean()->sortable(),
+            //   "isAvailable" => Tables\Columns\IconColumn::make('isAvailable')->boolean()->sortable(),
               "isFeatured" => Tables\Columns\IconColumn::make('isFeatured')->boolean()->sortable(),
               "isSponsored" => Tables\Columns\IconColumn::make('isSponsored')->boolean()->sortable(),
               "isNew" => Tables\Columns\IconColumn::make('isNew')->boolean()->sortable(),
