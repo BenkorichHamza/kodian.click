@@ -294,9 +294,10 @@ class ProductController extends Controller
 
 
         $product = Product::firstOrCreate(
-            ['code' => $request->code, 'barcode' => $request->barcode],
+            ['code' => $request->code],
             $request->except('categories','tags','img')
         );
+        $product->update($request->except('categories','tags','img'));
         $product->categories()->sync($request->categories);
         // $product->tags()->sync($request->tags);
 
