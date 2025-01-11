@@ -309,7 +309,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $img = $request->file('image');
 
-            $filename = time() . '.' . $img->extension();
+            $filename = Str::uuid() . '.' . $img->extension();
             $image = Image::read($img);
             $image
             ->resize(1000,1000, function($constraint){
