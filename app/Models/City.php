@@ -10,6 +10,9 @@ class City extends Model
     protected $fillable = [
         'name',
         'nameAr',
+        'message',
+        'messageAr',
+        'isActive',
         'commune_id',
         'img',
         "latitude",
@@ -17,7 +20,8 @@ class City extends Model
     ];
     use HasFactory;
 
-    public function commune(){
+    public function commune()
+    {
         return $this->belongsTo(Commune::class);
     }
 }

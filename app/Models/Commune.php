@@ -10,6 +10,9 @@ class Commune extends Model
     protected $fillable = [
         'name',
         'nameAr',
+        'message',
+        'messageAr',
+        'isActive',
         'wilaya_id',
         'img'
     ];

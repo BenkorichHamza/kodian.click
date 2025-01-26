@@ -25,6 +25,9 @@ class CityResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('nameAr')->required(),
+                Forms\Components\TextInput::make('message'),
+                Forms\Components\TextInput::make('messageAr'),
+                Forms\Components\Checkbox::make('isActive')->default(false),
                 Forms\Components\TextInput::make('longitude')->numeric(),
                 Forms\Components\TextInput::make('latitude')->numeric(),
                 Forms\Components\Select::make('commune_id')
@@ -39,10 +42,13 @@ class CityResource extends Resource
         return $table
             ->columns([
                 "img" => Tables\Columns\ImageColumn::make('img'),
+                "isActive" => Tables\Columns\IconColumn::make('isActive')->boolean()->sortable(),
                 "Commune" => Tables\Columns\TextColumn::make('commune.name')->searchable(),
                 "Wilaya" => Tables\Columns\TextColumn::make('commune.wilaya.name')->searchable(),
                 "name" => Tables\Columns\TextColumn::make('name')->searchable(),
                 "namAr" => Tables\Columns\TextColumn::make('nameAr'),
+                "message" => Tables\Columns\TextColumn::make('message')->searchable(),
+                "messageAr" => Tables\Columns\TextColumn::make('messageAr')->searchable(),
             ])
             ->filters([
                 //

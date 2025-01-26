@@ -10,7 +10,10 @@ class Wilaya extends Model
     protected $fillable = [
         'name',
         'nameAr',
+        'message',
+        'messageAr',
         "code",
+        'isActive',
         "longitude",
         "latitude",
         'img'
