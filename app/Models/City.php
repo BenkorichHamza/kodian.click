@@ -7,17 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    protected $fillable = [
-        'name',
-        'nameAr',
-        'message',
-        'messageAr',
-        'isActive',
-        'commune_id',
-        'img',
-        "latitude",
-        "longitude"
-    ];
+    protected $guarded = [];
     use HasFactory;
 
     public function commune()

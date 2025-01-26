@@ -7,15 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commune extends Model
 {
-    protected $fillable = [
-        'name',
-        'nameAr',
-        'message',
-        'messageAr',
-        'isActive',
-        'wilaya_id',
-        'img'
-    ];
+    protected $guarded = [];
     use HasFactory;
 
     public function wilaya(){

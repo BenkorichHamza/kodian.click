@@ -25,6 +25,8 @@ class CommuneResource extends Resource
                 Forms\Components\TextInput::make('message'),
                 Forms\Components\TextInput::make('messageAr'),
                 Forms\Components\Checkbox::make('isActive')->default(false),
+                Forms\Components\Checkbox::make('isSoon')->default(false),
+                Forms\Components\TextInput::make('status')->integer(),
                 Forms\Components\TextInput::make('longitude')->numeric(),
                 Forms\Components\TextInput::make('latitude')->numeric(),
                 Forms\Components\Select::make('wilaya_id')
@@ -40,6 +42,8 @@ class CommuneResource extends Resource
             ->columns([
                "img" => Tables\Columns\ImageColumn::make('img'),
                "isActive" => Tables\Columns\IconColumn::make('isActive')->boolean()->sortable(),
+               "isSoon" => Tables\Columns\IconColumn::make('isSoon')->boolean()->sortable(),
+                "status" => Tables\Columns\IconColumn::make('status')->sortable(),
                 "Wilaya" => Tables\Columns\TextColumn::make('wilaya.name')->searchable(),
                 "name" => Tables\Columns\TextColumn::make('name')->searchable(),
                 "namAr" => Tables\Columns\TextColumn::make('nameAr'),
