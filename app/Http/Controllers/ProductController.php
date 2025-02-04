@@ -298,7 +298,9 @@ class ProductController extends Controller
             $request->except('categories','tags','img')
         );
         $product->update($request->except('categories','tags','img'));
-        $product->categories()->sync($request->categories);
+        if($request->categories){
+            $product->categories()->sync($request->categories);
+        }
         // $product->tags()->sync($request->tags);
 
         $product->load(['categories','brand', "discounts" => function ($q) {
