@@ -5,7 +5,7 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::get('/politique', function () {
+Route::get('/privacy-policy', function () {
     return view('Politique');
 });
 

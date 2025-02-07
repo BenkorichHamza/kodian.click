@@ -70,9 +70,6 @@
         </div>
         <h1>Politique de Confidentialité de Kodian</h1>
         <p><strong>Dernière mise à jour :</strong> 07/02/2025</p>
-
-        <img src="https://via.placeholder.com/800x300" alt="Illustration de la livraison Kodian" class="banner">
-
         <h2>1. Introduction</h2>
         <p>Bienvenue sur <strong>Kodian</strong> ! Votre confidentialité est essentielle pour nous. Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous utilisez notre application, qui est exclusivement disponible en <strong>Algérie</strong>.</p>
 
