@@ -41,14 +41,15 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div style="text-align: center; margin-bottom: 20px;">
             <img src="{{ asset('images/fulllogo.png') }}" alt="Kodian" width="200">
         </div>
+        <h1>How to delete my account</h1>
         <h1 class="mt-4">Bienvenue sur Kodian</h1>
         <p class="lead">L'application de livraison à domicile rapide et fiable en Algérie.</p>
         <a href="#" class="btn-green">Découvrir l'application</a>
+
     </div>
 
 </body>

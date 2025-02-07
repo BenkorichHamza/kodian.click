@@ -77,6 +77,6 @@
             <li>Confirm by selecting "Yes" to permanently delete your account.</li>
         </ol>
 
-
+    </div>
 </body>
 </html>
