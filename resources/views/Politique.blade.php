@@ -16,6 +16,10 @@
         }
 
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 20px;
@@ -26,10 +30,7 @@
         }
 
         .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+
             max-width: 800px;
             background: var(--container-light);
             padding: 20px;
