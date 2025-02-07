@@ -26,6 +26,8 @@
         }
 
         .container {
+            display: flex;
+            justify-content: center;
             max-width: 800px;
             background: var(--container-light);
             padding: 20px;
