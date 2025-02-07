@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return view('Home');
 });
 
 Route::get('/privacy-policy', function () {
