@@ -68,7 +68,7 @@
         <div style="text-align: center; margin-bottom: 20px;">
             <img src="{{ asset('images/fulllogo.png') }}" alt="Kodian" width="200">
         </div>
-        <h1>PHow to delete my account</h1>
+        <h1>How to delete my account</h1>
         <ol>
             <li>Go to your profile page.</li>
             <li>Scroll to the bottom and click on the "Delete My Account" button.</li>
