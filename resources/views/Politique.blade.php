@@ -102,7 +102,7 @@
     </ul>
 
     <h2>7. Contact</h2>
-    <p>Pour toute question ou demande concernant votre confidentialité, contactez-nous à <a href="mailto:[votre email ou support client]">[votre email ou support client]</a>.</p>
+    <p>Pour toute question ou demande concernant votre confidentialité, contactez-nous à <a href="mailto:kodianapp@gmail.com">[votre email ou support client]</a>.</p>
 </div>
 
 </body>
