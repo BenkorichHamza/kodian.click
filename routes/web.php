@@ -8,5 +8,8 @@ Route::get('/', function () {
 Route::get('/privacy-policy', function () {
     return view('Politique');
 });
+Route::get('/help', function () {
+    return view('Help');
+});
 
 require __DIR__.'/auth.php';
