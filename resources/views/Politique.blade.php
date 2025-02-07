@@ -28,6 +28,8 @@
         .container {
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             max-width: 800px;
             background: var(--container-light);
             padding: 20px;
