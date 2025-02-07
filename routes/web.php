@@ -6,7 +6,7 @@ Route::get('/', function () {
 });
 
 Route::get('/politique', function () {
-    return view('politique');
+    return "aaaa";
 });
 
 require __DIR__.'/auth.php';
