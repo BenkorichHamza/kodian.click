@@ -64,6 +64,9 @@
 <body>
 
 <div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="{{ asset('images/fulllogo.png') }}" alt="Kodian" width="200">
+    </div>
     <h1>Politique de Confidentialité de Kodian</h1>
     <p><strong>Dernière mise à jour :</strong> [Date]</p>
 
