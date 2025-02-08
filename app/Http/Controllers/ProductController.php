@@ -293,10 +293,12 @@ class ProductController extends Controller
         // }
 
 
-        $product = Product::firstOrCreate(
-            ['code' => $request->code],
-            $request->except('categories','tags','img')
-        );
+        if($request->code){
+            $product = Product::firstOrCreate(
+                ['code' => $request->code],
+                $request->except('categories','tags','img')
+            );
+        }
         $product->update($request->except('categories','tags','img'));
         if($request->categories){
             $product->categories()->sync($request->categories);
@@ -372,14 +374,16 @@ class ProductController extends Controller
 
         }
 
-        if($request->barcode != null)
-        {
-            Product::where('barcode',$request->barcode)->where('id','!=',$product->id)->update(['barcode'=>null]);
-        }
+        // if($request->barcode != null)
+        // {
+        //     Product::where('barcode',$request->barcode)->where('id','!=',$product->id)->update(['barcode'=>null]);
+        // }
 
 
         $product->update($request->except('categories','tags','img'));
-        $product->categories()->sync($request->categories);
+        if($request->categories){
+            $product->categories()->sync($request->categories);
+        }
         // $product->tags()->sync($request->tags);
 
         $product->load(['categories','brand', "discounts" => function ($q) {
