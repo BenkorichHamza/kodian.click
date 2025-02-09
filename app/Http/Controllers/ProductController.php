@@ -89,7 +89,7 @@ class ProductController extends Controller
             ->orWhereHas('brand', fn($q) => $q->where("description","LIKE","%".$query1."%"))
             ->orWhereHas('brand', fn($q) => $q->where("descriptionAr","LIKE","%".$query1."%"));
         });
-        $builder1->where(function ($q) use ($words) {
+        $builder1->orWhere(function ($q) use ($words) {
             foreach ($words as $word) {
                     $q->where(function ($q1) use ($word) {
                         $q1->where("name","LIKE","%".$word."%")
