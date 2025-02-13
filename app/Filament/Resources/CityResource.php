@@ -25,6 +25,7 @@ class CityResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('nameAr')->required(),
+                Forms\Components\TextInput::make('fees')->numeric(),
                 Forms\Components\TextInput::make('message'),
                 Forms\Components\TextInput::make('messageAr'),
                 Forms\Components\Checkbox::make('isActive')->default(false),
@@ -44,12 +45,13 @@ class CityResource extends Resource
         return $table
             ->columns([
                 "img" => Tables\Columns\ImageColumn::make('img'),
+                "name" => Tables\Columns\TextColumn::make('name')->searchable(),
+                "fees" => Tables\Columns\TextColumn::make('fees'),
                 "isActive" => Tables\Columns\IconColumn::make('isActive')->boolean()->sortable(),
                 "isSoon" => Tables\Columns\IconColumn::make('isSoon')->boolean()->sortable(),
                 "status" => Tables\Columns\IconColumn::make('status')->sortable(),
                 "Commune" => Tables\Columns\TextColumn::make('commune.name')->searchable(),
                 "Wilaya" => Tables\Columns\TextColumn::make('commune.wilaya.name')->searchable(),
-                "name" => Tables\Columns\TextColumn::make('name')->searchable(),
                 "namAr" => Tables\Columns\TextColumn::make('nameAr'),
                 "message" => Tables\Columns\TextColumn::make('message')->searchable(),
                 "messageAr" => Tables\Columns\TextColumn::make('messageAr')->searchable(),
