@@ -138,6 +138,9 @@ class ProductController extends Controller
         if ($brand) {
             $builder->where('brand_id',$brand);
         }
+        if ($request->orderBy) {
+            $builder->orderBy('updated_at',"DESC");
+        }
         $discount = $request->query('discount');
         if ($discount=="true") {
             $builder->whereHas('discounts', function ($q) {
