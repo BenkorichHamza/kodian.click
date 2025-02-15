@@ -180,6 +180,9 @@ class ProductController extends Controller
             ->paginate(20)->withQueryString();
         $brands = $br->groupBy('brand_id')->paginate(100);
         $featuredProducts = $f->where('isFeatured', true)->with(['categories', 'tags', 'brand'])->paginate(100);
+        if ($request->orderBy) {
+            $featuredProducts=[];
+        }
         $newProducts = $n->where('isNew', true)->with(['categories', 'tags', 'brand'])->paginate(100);
         return response()->json([
             'products' => ProductResource::collection($products)->response()->getData(true),
