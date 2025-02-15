@@ -315,7 +315,7 @@ class ProductController extends Controller
             $filename = $product->id.'-'.time() . '.' . $img->extension();
             $image = Image::read($img);
             $image
-            ->resize(1000,1000, function($constraint){
+            ->resize(1000,null, function($constraint){
                 $constraint->aspectRatio();
             })
             ->save(('storage/'.$filename));
@@ -359,7 +359,7 @@ class ProductController extends Controller
             $filename = time() . '.' . $img->extension();
             $image = Image::read($img);
             $image
-            ->resize(1500,1500, function($constraint){
+            ->resize(1000,null, function($constraint){
                 $constraint->aspectRatio();
             })
             ->save(('storage/'.$filename));
