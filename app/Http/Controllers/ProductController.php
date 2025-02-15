@@ -135,9 +135,7 @@ class ProductController extends Controller
             if ($brand) {
                 $builder->where('brand_id', $brand);
             }
-            if ($request->orderBy) {
-                $builder->orderByRaw('GREATEST(created_at::timestamp, updated_at::timestamp) DESC');
-            }
+
             $discount = $request->query('discount');
             if ($discount == "true") {
                 $builder->whereHas('discounts', function ($q) {
@@ -148,6 +146,7 @@ class ProductController extends Controller
             if ($category) {
                 $builder->whereHas('categories', fn($q) => $q->where('id', $category));
             }
+
 
             $favorites = $request->query('favorites');
             if ($favorites) {
@@ -167,6 +166,9 @@ class ProductController extends Controller
                     });
                 }
             }
+        }
+        if ($request->orderBy) {
+            $builder->latest();
         }
         $f = clone $builder;
         $n = clone $builder;
