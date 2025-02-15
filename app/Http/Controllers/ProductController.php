@@ -136,9 +136,7 @@ class ProductController extends Controller
                 $builder->where('brand_id', $brand);
             }
             if ($request->orderBy) {
-                $builder->orderByRaw("CASE
-            WHEN created_at >= updated_at  THEN created_at
-            ELSE updated_at DESC",);
+                $builder->orderByRaw('GREATEST(created_at::timestamp, updated_at::timestamp) DESC');
             }
             $discount = $request->query('discount');
             if ($discount == "true") {
