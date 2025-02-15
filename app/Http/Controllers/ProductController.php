@@ -168,7 +168,7 @@ class ProductController extends Controller
             }
         }
         if ($request->orderBy) {
-            $builder->latest();
+            $builder->orderByRaw('GREATEST(created_at::timestamp, updated_at::timestamp) DESC');
         }
         $f = clone $builder;
         $n = clone $builder;
