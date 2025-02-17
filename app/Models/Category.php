@@ -17,12 +17,19 @@ protected $fillable = [
     'descriptionAr',
     'img',
     'order',
+    'parentId'
 ];
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
     }
+
+    public function parentCategory()
+    {
+        return $this->belongsTo(Category::class, 'parentId');
+    }
+
 
 
 }

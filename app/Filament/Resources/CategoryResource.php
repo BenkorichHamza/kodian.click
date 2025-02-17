@@ -38,6 +38,8 @@ class CategoryResource extends Resource
                     ->maxLength(1024),
                     Forms\Components\TextInput::make('order')->required()
                     ->integer(),
+                    Forms\Components\Select::make('parentId')
+                        ->relationship('parent', 'name'),
 
                 FileUpload::make('img')
                     ->image()
@@ -53,6 +55,7 @@ class CategoryResource extends Resource
                 "img" => Tables\Columns\ImageColumn::make('img'),
               "name" => Tables\Columns\TextColumn::make('name')->searchable(),
               "namAr" => Tables\Columns\TextColumn::make('nameAr'),
+              "parentName" => Tables\Columns\TextColumn::make('parent.name')->searchable(),
             ])
             ->filters([
 

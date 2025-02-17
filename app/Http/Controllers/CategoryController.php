@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::orderBy('order')->get());
+        return CategoryResource::collection(Category::with('parent')->orderBy('order')->get());
     }
 
     public function products(Category $category)
