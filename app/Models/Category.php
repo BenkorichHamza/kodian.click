@@ -25,7 +25,7 @@ protected $fillable = [
         return $this->belongsToMany(Product::class);
     }
 
-    public function parentCategory()
+    public function parent()
     {
         return $this->belongsTo(Category::class, 'parentId');
     }
