@@ -54,6 +54,7 @@ class CategoryResource extends Resource
             ->columns([
                 "img" => Tables\Columns\ImageColumn::make('img'),
               "name" => Tables\Columns\TextColumn::make('name')->searchable(),
+              "order" => Tables\Columns\TextColumn::make('order')->sortable(),
               "namAr" => Tables\Columns\TextColumn::make('nameAr'),
               "parentName" => Tables\Columns\TextColumn::make('parent.name')->searchable(),
             ])
