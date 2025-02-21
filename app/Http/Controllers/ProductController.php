@@ -310,7 +310,7 @@ class ProductController extends Controller
             $img = $request->file('image');
 
             $filename = $product->id . '-' . time() . '.' . $img->extension();
-            $image = Image::make($img->getRealPath());
+            $image = Image::make($img);
             $image
                 ->resize(1000, 1000, function ($constraint) {
 
@@ -356,7 +356,7 @@ class ProductController extends Controller
             $img = $request->file('image');
 
             $filename = time() . '.' . $img->extension();
-            $image = Image::make($img->getRealPath());
+            $image = Image::make($img);
             $image
                 ->resize(1000, 1000, function ($constraint) {
 
