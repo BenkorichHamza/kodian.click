@@ -312,7 +312,7 @@ class ProductController extends Controller
             $filename = $product->id . '-' . time() . '.' . $img->extension();
             $image = Image::read($img);
             $image
-                ->resize(1000, null, function ($constraint) {
+                ->resize(1000, 1000, function ($constraint) {
                     $constraint->aspectRatio();
                 })
                 ->save(('storage/' . $filename));
@@ -407,7 +407,7 @@ class ProductController extends Controller
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $img = Image::read($image);
             // Resize image
-            $img->resize(200, 200, function ($constraint) {
+            $img->resize(1000, 1000, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('images/' . $filename));
         }
