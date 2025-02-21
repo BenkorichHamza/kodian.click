@@ -181,7 +181,7 @@ class ProductController extends Controller
         $brands = $br->groupBy('brand_id')->paginate(100);
         $featuredProducts = $f->where('isFeatured', true)->with(['categories', 'tags', 'brand'])->paginate(100);
         if ($request->orderBy) {
-            $featuredProducts=[];
+            $featuredProducts = [];
         }
         $newProducts = $n->where('isNew', true)->with(['categories', 'tags', 'brand'])->paginate(100);
         return response()->json([
@@ -295,7 +295,7 @@ class ProductController extends Controller
         //     $request->except('categories', 'tags', 'img')
         // );
 
-        $product=Product::create($request->except('categories', 'tags', 'img'));
+        $product = Product::create($request->except('categories', 'tags', 'img'));
         if ($request->categories) {
             $product->categories()->sync($request->categories);
         }
@@ -310,10 +310,12 @@ class ProductController extends Controller
             $img = $request->file('image');
 
             $filename = $product->id . '-' . time() . '.' . $img->extension();
-            $image = Image::read($img);
+            $image = Image::make($img->getRealPath());
             $image
                 ->resize(1000, 1000, function ($constraint) {
-                    $constraint->aspectRatio();
+
+                    $constraint->aspectRatio(); // Conserve le ratio
+                    $constraint->upsize(); // Empêche l'agrandissement si l'image est plus petite
                 })
                 ->save(('storage/' . $filename));
             // if($product->img != null)
@@ -354,10 +356,12 @@ class ProductController extends Controller
             $img = $request->file('image');
 
             $filename = time() . '.' . $img->extension();
-            $image = Image::read($img);
+            $image = Image::make($img->getRealPath());
             $image
                 ->resize(1000, 1000, function ($constraint) {
-                    $constraint->aspectRatio();
+
+                    $constraint->aspectRatio(); // Conserve le ratio
+                    $constraint->upsize(); // Empêche l'agrandissement si l'image est plus petite
                 })
                 ->save(('storage/' . $filename));
             // if($product->img != null)
