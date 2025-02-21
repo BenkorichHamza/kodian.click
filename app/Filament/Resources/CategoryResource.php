@@ -30,16 +30,16 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('nameAr')
                     ->required()
                     ->maxLength(255),
-                    Forms\Components\TextInput::make('description')
+                Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(1024),
-                    Forms\Components\TextInput::make('descriptionAr')
+                Forms\Components\TextInput::make('descriptionAr')
                     ->required()
                     ->maxLength(1024),
-                    Forms\Components\TextInput::make('order')->required()
+                Forms\Components\TextInput::make('order')->required()
                     ->integer(),
-                    Forms\Components\Select::make('parentId')
-                        ->relationship('parent', 'name'),
+                Forms\Components\Select::make('parentId')
+                    ->relationship('parent', 'name'),
 
                 FileUpload::make('img')
                     ->image()
@@ -53,15 +53,12 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 "img" => Tables\Columns\ImageColumn::make('img'),
-              "name" => Tables\Columns\TextColumn::make('name')->searchable(),
-              "order" => Tables\Columns\TextColumn::make('order')->editable()->updateStateUsing(fn ($record, $state) => $record->update(['order' => $state]))
-              ->sortable(),
-              "namAr" => Tables\Columns\TextColumn::make('nameAr'),
-              "parentName" => Tables\Columns\TextColumn::make('parent.name')->searchable(),
+                "name" => Tables\Columns\TextColumn::make('name')->searchable(),
+                "order" => Tables\Columns\TextColumn::make('order')->editable()->updateStateUsing(fn($record, $state) => $record->update(['order' => $state])),
+                "namAr" => Tables\Columns\TextColumn::make('nameAr'),
+                "parentName" => Tables\Columns\TextColumn::make('parent.name')->searchable(),
             ])
-            ->filters([
-
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
