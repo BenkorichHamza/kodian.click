@@ -147,8 +147,12 @@ class ProductController extends Controller
                 $builder->whereHas('categories', fn($q) => $q->where('id', $category));
             }
             $withoutCategory=$request->query('withoutCategory');
+            $withCategory=$request->query('withCategory');
             if ($withoutCategory) {
-                $builder->whereDoesntHave('categories');
+                $builder->whereHas('categories');
+            }
+            if ($withCategory) {
+                $builder->whereHave('categories');
             }
 
 
