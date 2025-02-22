@@ -146,13 +146,21 @@ class ProductController extends Controller
             if ($category) {
                 $builder->whereHas('categories', fn($q) => $q->where('id', $category));
             }
-            $withoutCategory=$request->query('withoutCategory');
-            $withCategory=$request->query('withCategory');
+            $withoutCategory = $request->query('withoutCategory');
+            $withCategory = $request->query('withCategory');
             if ($withoutCategory) {
                 $builder->whereDoesntHave('categories');
             }
             if ($withCategory) {
                 $builder->whereHas('categories');
+            }
+            $withPrice = $request->query('withPrice');
+            $withoutPrice = $request->query('withoutPrice');
+            if ($withoutPrice) {
+                $builder->where('price','<=',0);
+            }
+            if ($withPrice) {
+                $builder->where('price','>',0);
             }
 
 
@@ -189,7 +197,7 @@ class ProductController extends Controller
         $brands = $br->groupBy('brand_id')->paginate(100);
         $featuredProducts = $f->where('isFeatured', true)->with(['categories', 'tags', 'brand'])->paginate(100);
         if ($request->orderBy) {
-            $featuredProducts=[];
+            $featuredProducts = [];
         }
         $newProducts = $n->where('isNew', true)->with(['categories', 'tags', 'brand'])->paginate(100);
         return response()->json([
@@ -303,7 +311,7 @@ class ProductController extends Controller
         //     $request->except('categories', 'tags', 'img')
         // );
 
-        $product=Product::create($request->except('categories', 'tags', 'img'));
+        $product = Product::create($request->except('categories', 'tags', 'img'));
         if ($request->categories) {
             $product->categories()->sync($request->categories);
         }
