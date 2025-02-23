@@ -186,6 +186,7 @@ class ProductController extends Controller
         if ($request->orderBy) {
             $builder->orderByRaw('GREATEST(created_at, updated_at) DESC');
         }
+        $builder->where('price','>',0);
         $f = clone $builder;
         $n = clone $builder;
         $br = clone $builder;
