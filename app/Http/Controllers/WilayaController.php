@@ -13,7 +13,15 @@ class WilayaController extends Controller
      */
     public function index()
     {
-        return WilayaResource::collection(Wilaya::with("communes.cities")->get());
+        return WilayaResource::collection(
+            Wilaya::with(["communes" => function ($q) {
+                $q->orderBy("name");
+            }, "communes.cities" => function ($q) {
+                $q->orderBy("name");
+            }])
+                ->orderBy("name")
+                ->get()
+        );
 
     }
 
