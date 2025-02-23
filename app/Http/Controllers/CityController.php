@@ -13,7 +13,11 @@ class CityController extends Controller
      */
     public function index()
     {
-        return CityResource::collection(City::with("commune.wilaya")->get());
+        return CityResource::collection(City::with(['commune' => function ($query) {
+            $query->orderBy('name')->with(['wilaya' => function ($query) {
+                $query->orderBy('name');
+            }]);
+        }])->orderBy('name')->get());
 
     }
 
