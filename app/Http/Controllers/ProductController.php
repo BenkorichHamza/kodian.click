@@ -91,7 +91,16 @@ class ProductController extends Controller
                     $builder1->orWhere(
                         function ($q) use ($words) {
                             foreach ($words as $word) {
-                                $q->where(function ($q1) use ($word) {
+
+                                $q->orderByRaw("CASE
+                                WHEN name LIKE '" . $word . "%'  THEN 4
+                                WHEN name LIKE '%" . $word . "%' THEN 5
+                                WHEN name LIKE '%" . $word . "' THEN 6
+                                WHEN nameAr LIKE '" . $word . "%' THEN 4
+                                WHEN nameAr LIKE '%" . $word . "%' THEN 5
+                                WHEN nameAr LIKE '%" . $word . "' THEN 6
+                                ELSE 7
+                            END")->where(function ($q1) use ($word) {
                                     $q1->where("name", "LIKE", "%" . $word . "%")
                                         ->orWhere("nameAr", "LIKE", "%" . $word . "%")
                                         ->orWhere("description", "LIKE", "%" . $word . "%")
