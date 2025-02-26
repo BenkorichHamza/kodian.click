@@ -57,35 +57,68 @@ class ProductController extends Controller
             }
 
             $category = $request->query('category');
-            $builder->where(function ($q) use ($words) {
-                foreach ($words as $word) {
-                    $q->orWhere('name', 'LIKE', "%$word%")
-                      ->orWhere('nameAr', 'LIKE', "%$word%")
-                      ->orWhereHas('category', function ($query) use ($word) {
-                          $query->where('name', 'LIKE', "%$word%");
-                      });
+            $builder->where(
+                function ($builder1) use ($request) {
+                    $query = $request->query('query');
+                    $words = explode(' ', trim($query));
+
+                    $query1 = str_replace('%', '', trim($query));
+                    $query1 = str_replace(' ', '%', trim($query1));
+                    $builder1
+                        ->orderByRaw("CASE
+            WHEN name LIKE '" . $query1 . "%'  THEN 0
+            WHEN name LIKE '%" . $query1 . "%' THEN 1
+            WHEN name LIKE '%" . $query1 . "' THEN 2
+            WHEN nameAr LIKE '" . $query1 . "%' THEN 0
+            WHEN nameAr LIKE '%" . $query1 . "%' THEN 1
+            WHEN nameAr LIKE '%" . $query1 . "' THEN 2
+            ELSE 3
+        END")
+                        ->where(function ($q) use ($query1) {
+                            $q->where("name", "LIKE", "%" . $query1 . "%")
+                                ->orWhere("nameAr", "LIKE", "%" . $query1 . "%")
+                                ->orWhere("description", "LIKE", "%" . $query1 . "%")
+                                ->orWhere("descriptionAr", "LIKE", "%" . $query1 . "%")
+                                ->orWhereHas('categories', fn($q) => $q->where("name", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('categories', fn($q) => $q->where("nameAr", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('categories', fn($q) => $q->where("description", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('categories', fn($q) => $q->where("descriptionAr", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('brand', fn($q) => $q->where("name", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('brand', fn($q) => $q->where("nameAr", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('brand', fn($q) => $q->where("description", "LIKE", "%" . $query1 . "%"))
+                                ->orWhereHas('brand', fn($q) => $q->where("descriptionAr", "LIKE", "%" . $query1 . "%"));
+                        });
+                    $builder1->orWhere(
+                        function ($q) use ($words) {
+                            foreach ($words as $word) {
+
+                                $q->orderByRaw("CASE
+                                WHEN name LIKE '" . $word . "%'  THEN 4
+                                WHEN name LIKE '%" . $word . "%' THEN 5
+                                WHEN name LIKE '%" . $word . "' THEN 6
+                                WHEN nameAr LIKE '" . $word . "%' THEN 4
+                                WHEN nameAr LIKE '%" . $word . "%' THEN 5
+                                WHEN nameAr LIKE '%" . $word . "' THEN 6
+                                ELSE 7
+                            END")->where(function ($q1) use ($word) {
+                                    $q1->where("name", "LIKE", "%" . $word . "%")
+                                        ->orWhere("nameAr", "LIKE", "%" . $word . "%")
+                                        ->orWhere("description", "LIKE", "%" . $word . "%")
+                                        ->orWhere("descriptionAr", "LIKE", "%" . $word . "%")
+                                        ->orWhereHas('categories', fn($q) => $q->where("name", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('categories', fn($q) => $q->where("nameAr", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('categories', fn($q) => $q->where("description", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('categories', fn($q) => $q->where("descriptionAr", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('brand', fn($q) => $q->where("name", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('brand', fn($q) => $q->where("nameAr", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('brand', fn($q) => $q->where("description", "LIKE", "%" . $word . "%"))
+                                        ->orWhereHas('brand', fn($q) => $q->where("descriptionAr", "LIKE", "%" . $word . "%"));
+                                });
+                            }
+                        }
+                    );
                 }
-            })->orderByRaw("
-                CASE
-                    WHEN name LIKE '$query%' THEN 1
-                    WHEN name LIKE '%$query%' THEN 2
-                    WHEN nameAr LIKE '$query%' THEN 3
-                    WHEN category.name LIKE '$query%' THEN 4
-                    WHEN category.name LIKE '%$query%' THEN 5
-                    ELSE 6
-                END
-            ")->orderByRaw("
-                CASE " . collect($words)->map(function ($word, $index) {
-                    return "
-                    WHEN name LIKE '$word%' THEN " . (10 * $index + 1) . "
-                    WHEN name LIKE '%$word%' THEN " . (10 * $index + 2) . "
-                    WHEN nameAr LIKE '$word%' THEN " . (10 * $index + 3) . "
-                    WHEN category.name LIKE '$word%' THEN " . (10 * $index + 4) . "
-                    WHEN category.name LIKE '%$word%' THEN " . (10 * $index + 5);
-                })->implode(" ") . "
-                ELSE 1000
-                END
-            ")
+            );
 
             // for ($i=0; $i < 12; $i++) {
             //     shuffle($words);
