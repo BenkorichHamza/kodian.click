@@ -29,6 +29,11 @@ class ProductController extends Controller
         $barcode = $request->query('barcode');
         $all = $request->query('all');
         $available = $request->query('available');
+        $query = $request->query('query');
+        $words = explode(' ', trim($query));
+
+        $query1 = str_replace('%', '', trim($query));
+        $query1 = str_replace(' ', '%', trim($query1));
         $builder = Product::with(
             [
                 'categories',
@@ -58,22 +63,9 @@ class ProductController extends Controller
 
             $category = $request->query('category');
             $builder->where(
-                function ($builder1) use ($request) {
-                    $query = $request->query('query');
-                    $words = explode(' ', trim($query));
+                function ($builder1) use ($request,$words,$query1) {
 
-                    $query1 = str_replace('%', '', trim($query));
-                    $query1 = str_replace(' ', '%', trim($query1));
                     $builder1
-                        ->orderByRaw("CASE
-            WHEN name LIKE '" . $query1 . "%'  THEN 0
-            WHEN name LIKE '%" . $query1 . "%' THEN 1
-            WHEN name LIKE '%" . $query1 . "' THEN 2
-            WHEN nameAr LIKE '" . $query1 . "%' THEN 0
-            WHEN nameAr LIKE '%" . $query1 . "%' THEN 1
-            WHEN nameAr LIKE '%" . $query1 . "' THEN 2
-            ELSE 3
-        END")
                         ->where(function ($q) use ($query1) {
                             $q->where("name", "LIKE", "%" . $query1 . "%")
                                 ->orWhere("nameAr", "LIKE", "%" . $query1 . "%")
@@ -197,6 +189,16 @@ class ProductController extends Controller
         if ($request->orderBy) {
             $builder->orderByRaw('GREATEST(created_at, updated_at) DESC');
         }
+        $builder
+        ->orderByRaw("CASE
+WHEN name LIKE '" . $query1 . "%'  THEN 0
+WHEN name LIKE '%" . $query1 . "%' THEN 1
+WHEN name LIKE '%" . $query1 . "' THEN 2
+WHEN nameAr LIKE '" . $query1 . "%' THEN 0
+WHEN nameAr LIKE '%" . $query1 . "%' THEN 1
+WHEN nameAr LIKE '%" . $query1 . "' THEN 2
+ELSE 3
+END");
         $f = clone $builder;
         $n = clone $builder;
         $br = clone $builder;
