@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v2;
 
 use App\Http\Resources\CommuneResource;
 use App\Models\Commune;

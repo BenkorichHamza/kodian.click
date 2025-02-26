@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v2;
 
 use App\Models\OrderStatus;
 use App\Http\Requests\StoreOrderStatusRequest;
