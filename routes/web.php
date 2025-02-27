@@ -12,4 +12,8 @@ Route::get('/helpme', function () {
     return view('Help');
 });
 
+Route::get('/download', function () {
+   redirect("https://play.google.com/store/apps/details?id=com.benkosoft.kodian&hl=fr");
+});
+
 require __DIR__.'/auth.php';
