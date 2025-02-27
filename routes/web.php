@@ -13,7 +13,7 @@ Route::get('/helpme', function () {
 });
 
 Route::get('/download', function () {
-   redirect("https://play.google.com/store/apps/details?id=com.benkosoft.kodian&hl=fr");
+   return redirect("https://play.google.com/store/apps/details?id=com.benkosoft.kodian&hl=fr");
 });
 
 require __DIR__.'/auth.php';
