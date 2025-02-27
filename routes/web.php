@@ -13,12 +13,7 @@ Route::get('/helpme', function () {
 });
 
 Route::get('/download', function () {
-    $packageName = 'com.benkosoft.kodian'; // ضع معرف الباكيج الخاص بتطبيقك
-    $playStoreUrl = "https://play.google.com/store/apps/details?id={$packageName}";
-
-    $intentUrl = "intent://#Intent;package={$packageName};scheme=https;end;";
-
-    return redirect($intentUrl);
+   return redirect("https://play.google.com/store/apps/details?id=com.benkosoft.kodian&hl=fr");
 });
 
 require __DIR__.'/auth.php';
